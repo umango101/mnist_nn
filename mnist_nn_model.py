@@ -11,12 +11,19 @@ LEARNING_RATE = 0.001
 class FeedForwardNet(nn.Module):
 	def __init__(self):
 		super().__init__()
-		self.flatten = nn.Flatten()
+		# flatten images into usable data
+		# basically an input with [a, b, c, d] dimensions turns into output with [a, bcd] dimensions
+		# [[1, 1, 1]]
+		self.flatten = nn.Flatten() 
+
+		# define neural net layers
 		self.dense_layers = nn.Sequential(
 			nn.Linear(28*28, 256),
 			nn.ReLU(),
 			nn.Linear(256, 10)
 		)
+
+		# standardize output
 		self.softmax = nn.Softmax(dim=1)
 
 	def forward(self, input_data):
